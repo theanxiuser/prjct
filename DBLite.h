@@ -102,6 +102,12 @@ class DBLite {
 
 		}
 
+		void searchTable(const char *id){
+			// Searching user in table by id
+			sql = "SELECT * FROM User WHERE user_id = 'id';";
+			rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
+		}
+
 		void deleteRow(char const* user_id) {
 
 			char *query = NULL;

@@ -1,6 +1,7 @@
 #include<string>
 #include<iostream>
 #include<vector>
+#include"DBLite.h"
 using namespace std;
 class User{
     private:
@@ -32,20 +33,26 @@ void User::addUser(string id, string fn, string ln, string gn, string ad, string
     this->email = em;
     this->phone = ph;
     this->department = dp;
+
+    // Adding user into database
+    DBLite sqldb;
+    sqldb.createTable();
+    sqldb.insertData(user_id.c_str(), first_name.c_str(), last_name.c_str(), gender.c_str(), address.c_str(), email.c_str(), phone.c_str(), department.c_str());
+    sqldb.closeDB();
 }
 
 // Returning the specific user object
-// vector<string> User::returnUser(){
-    // vector<string> v;
-    // v.push_back(user_id);
-    // v.push_back(first_name);
-    // v.push_back(last_name);
-    // v.push_back(gender);
-    // v.push_back(address);
-    // v.push_back(email);
-    // v.push_back(phone);
-    // v.push_back(department);
-    // return v;
+vector<string> User::returnUser(){
+    vector<string> v;
+    v.push_back(user_id);
+    v.push_back(first_name);
+    v.push_back(last_name);
+    v.push_back(gender);
+    v.push_back(address);
+    v.push_back(email);
+    v.push_back(phone);
+    v.push_back(department);
+    return v;
     // User usr;
     // usr.user_id = user_id;
     // usr.first_name = first_name;
@@ -56,7 +63,7 @@ void User::addUser(string id, string fn, string ln, string gn, string ad, string
     // usr.phone = phone;
     // usr.department = department;
     // return usr;
-// }
+}
 
 User User::returnUsere(){
     User usr;
@@ -80,7 +87,7 @@ void User::displayUser(){
         <<"Gender = "<<gender<<endl
         <<"Address = "<<address<<endl
         <<"Email = "<<email<<endl
-        <<"Phone = "<<phone[10]<<endl
+        <<"Phone = "<<phone<<endl
         <<"Department = "<<department<<endl;
 }
 

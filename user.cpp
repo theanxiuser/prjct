@@ -3,7 +3,7 @@
 using namespace std;
 
 // Adding new user
-void User::addUser(int id, string fn, string ln, string gn, string ad, string em, string ph, string dp){
+void User::addUser( id, string fn, string ln, string gn, string ad, string em, string ph, string dp){
     this->user_id = id;
     this->first_name = fn;
     this->last_name = ln;

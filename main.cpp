@@ -1,7 +1,7 @@
 using namespace std;
 #include<iostream>
 #include"user.h"
-#include"DBLite.h"
+// #include"DBLite.h"
 #include<vector>
 
 // void access(User usr){
@@ -13,9 +13,9 @@ int main(){
     u.addUser("20", "b", "p", "m");
     cout<<"User created in class"<<endl;
     
-    User usr = u.returnUsere();
-    cout<<"Display from class"<<endl;
-    usr.displayUser();
+    // User usr = u.returnUsere();
+    // cout<<"Display from class"<<endl;
+    // usr.displayUser();
 
     // v = u.returnUser();
     // for (int i=0; i<8 ;i++)
@@ -30,19 +30,19 @@ int main(){
     // ph = v[6];
     // dp = v[7];
 
-    DBLite sqldb;
-    sqldb.createTable();
-    // Inserting into db
-    sqldb.insertData("255", "John", "Pradhan", "Male", " "," "," "," ");
-    cout<<"Inserted into db"<<endl<<endl;
+    // DBLite sqldb;
+    // sqldb.createTable();
+    // // Inserting into db
+    // sqldb.insertData("255", "John", "Pradhan", "Male", " "," "," "," ");
+    // cout<<"Inserted into db"<<endl<<endl;
 
-    cout<<"Data from db"<<endl<<endl;;
-    sqldb.showTable();
-    sqldb.closeDB();
-
-    // sqldb.insertData(usr.user_id, usr.first_name, usr.last_name, usr.gender, usr.address, usr.email, usr.phone, usr.department);
+    // sqldb.insertData(usr.user_id.c_str(), usr.first_name.c_str(), usr.last_name.c_str(), usr.gender.c_str(), usr.address.c_str(), usr.email.c_str(), usr.phone.c_str(), usr.department.c_str());
     // sqldb.insertData(v.pop_back(), v.pop_back(), v.pop_back(), v.pop_back(), v.pop_back(), v.pop_back(), v.pop_back(), v.pop_back());
-    // sqldb.insertData(id, fn, ln, gn, ad, em, ph, dp);
+    // sqldb.insertData(id.c_str(), fn.c_str(), ln.c_str(), gn.c_str(), ad.c_str(), em.c_str(), ph.c_str(), dp.c_str());
+    // cout<<"Data from db"<<endl<<endl;;
+    // sqldb.showTable();
+    // sqldb.closeDB();
+
 
     // u.displayUser();
     // u1.displayUser();
