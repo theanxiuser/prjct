@@ -6,95 +6,154 @@ using namespace std;
 class User{
     private:
     string user_id;
-    string first_name;
-    string last_name;
-    string gender;
-    string address;
+    string name;
+    // string last_name;
     string email;
+    string address;
     string phone;
-    string department;
+    string gender;
+    // string department;
     public:
-    void addUser(string, string, string, string, string="non", string="non", string="non", string="non");
-    vector<string> returnUser();
-    User returnUsere();
+    void addUser(string, string, string, string, string);
+    // vector<string> returnUser();
+    User returnUser(string);
     void displayUser();
-    void updateUser();
-    void removeUser();
+    void updateUser(string, string, string, string);
+    void removeUser(string);
+    User displayAllUser();
+    bool searchUser(string);
+    int numOfRow();
     // friend void access(User usr);
 };
 
+// Find the number of rows present in database
+int User::numOfRow(){
+    DBLite sqldb;
+    int num = sqldb.numOfRow();
+    sqldb.closeDB();
+    return num;
+}
+
+// Return all the users available in db into main
+User User::displayAllUser(){
+    User u;
+    DBLite sqldb;
+    sqldb.showTable();
+    // Returning all the content of table row by row
+    
+    return u;
+}
+
+User returnUser(string name){
+    User u;
+    DBLite sqldb;
+    // Requesting db to return row of name=name
+    sqldb.returnRow(name.c_str());
+    // Store info into object and return back to main
+
+    return u;
+}
+
+bool User::searchUser(string name){
+    this->name = name;
+    DBLite sqldb;
+    // Check either name is in db or not and respond to main
+    if(sqldb.searchTable(name.c_str())){
+        return true;
+    }
+    else
+        return false;
+    sqldb.closeDB();
+}
+
+void User::updateUser(string name, string email, string address, string phone){
+    this->name = name;
+    this->email = email;
+    this->address = address;
+    this->phone = phone;
+    DBLite sqldb;
+    // Update name with new infos in db
+    sqldb.updateData(name.c_str(), email.c_str(), address.c_str(), phone.c_str());
+    sqldb.closeDB();
+}
+
+void User::removeUser(string name){
+    this->name = name;
+    DBLite sqldb;
+    sqldb.deleteRow(name.c_str());
+    sqldb.closeDB();
+}
+
 // Adding new user
-void User::addUser(string id, string fn, string ln, string gn, string ad, string em, string ph, string dp){
-    this->user_id = id;
-    this->first_name = fn;
-    this->last_name = ln;
-    this->gender = gn;
-    this->address = ad;
-    this->email = em;
-    this->phone = ph;
-    this->department = dp;
+void User::addUser(string name, string email, string address, string phone, string gender){
+    this->name = name;
+    this->email = email;
+    this->address = address;
+    this->phone = phone;
+    this->gender = gender;
+    // this->department = dp;
 
     // Adding user into database
     DBLite sqldb;
     sqldb.createTable();
-    sqldb.insertData(user_id.c_str(), first_name.c_str(), last_name.c_str(), gender.c_str(), address.c_str(), email.c_str(), phone.c_str(), department.c_str());
+    // sqldb.insertData(user_id.c_str(), first_name.c_str(), last_name.c_str(), gender.c_str(), address.c_str(), email.c_str(), phone.c_str(), department.c_str());
+    sqldb.insertData(name.c_str(), email.c_str(), address.c_str(), phone.c_str(), gender.c_str());
     sqldb.closeDB();
 }
 
 // Returning the specific user object
-vector<string> User::returnUser(){
-    vector<string> v;
-    v.push_back(user_id);
-    v.push_back(first_name);
-    v.push_back(last_name);
-    v.push_back(gender);
-    v.push_back(address);
-    v.push_back(email);
-    v.push_back(phone);
-    v.push_back(department);
-    return v;
-    // User usr;
-    // usr.user_id = user_id;
-    // usr.first_name = first_name;
-    // usr.last_name = last_name;
-    // usr.gender = gender;
-    // usr.address = address;
-    // usr.email = email;
-    // usr.phone = phone;
-    // usr.department = department;
-    // return usr;
-}
+// vector<string> User::returnUser(){
+//     vector<string> v;
+//     v.push_back(user_id);
+//     v.push_back(first_name);
+//     v.push_back(last_name);
+//     v.push_back(gender);
+//     v.push_back(address);
+//     v.push_back(email);
+//     v.push_back(phone);
+//     v.push_back(department);
+//     return v;
+//     // User usr;
+//     // usr.user_id = user_id;
+//     // usr.first_name = first_name;
+//     // usr.last_name = last_name;
+//     // usr.gender = gender;
+//     // usr.address = address;
+//     // usr.email = email;
+//     // usr.phone = phone;
+//     // usr.department = department;
+//     // return usr;
+// }
 
-User User::returnUsere(){
-    User usr;
-    usr.user_id = user_id;
-    usr.first_name = first_name;
-    usr.last_name = last_name;
-    usr.gender = gender;
-    usr.address = address;
-    usr.email = email;
-    usr.phone = phone;
-    usr.department = department;
-    return usr;
-}
+// User User::returnUsere(){
+//     User usr;
+//     usr.user_id = user_id;
+//     usr.first_name = first_name;
+//     usr.last_name = last_name;
+//     usr.gender = gender;
+//     usr.address = address;
+//     usr.email = email;
+//     usr.phone = phone;
+//     usr.department = department;
+//     return usr;
+// }
 
 // Display the info of user, this may not be useful
 // Just created for test
 void User::displayUser(){
-    cout<<"\nUser Informations:"<<endl
-        <<"Id = "<<user_id<<endl
-        <<"Name = "<<first_name<<" "<<last_name<<endl
-        <<"Gender = "<<gender<<endl
-        <<"Address = "<<address<<endl
+    cout<<"Full Name = "<<name<<endl
+        <<"User ID = "<<user_id<<endl
         <<"Email = "<<email<<endl
-        <<"Phone = "<<phone<<endl
-        <<"Department = "<<department<<endl;
-}
+        <<"Address = "<<address<<endl
+        <<"Phone no. = "<<phone<<endl
+        <<"Gender = "<<gender<<endl;
 
-void User::updateUser(){
-
-}
-
-void User::removeUser(){
-
+    // cout<<"\nUser Informations:"<<endl
+    //     <<"Id = "<<user_id<<endl
+    //     <<"Name = "<<first_name<<" "<<last_name<<endl
+    //     <<"Gender = "<<gender<<endl
+    //     <<"Address = "<<address<<endl
+    //     <<"Email = "<<email<<endl
+    //     <<"Phone = "<<phone<<endl
+    //     <<"Department = "<<department<<endl;
 }

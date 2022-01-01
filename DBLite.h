@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string.h>
 #include <sqlite3.h>
+// #include "user.h"
 using namespace std;
 
 class DBLite {
@@ -71,7 +72,7 @@ class DBLite {
 		    rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
 		}
 
-		void insertData(char const * user_id, char const * first_name, char const *last_name, const char *gender, const char *address, const char *email, const char *phone, const char *department) {
+		void insertData(char const * name, const char *email, const char *address, const char *phone, const char *gender) {
 
 			char *query = NULL;
 
@@ -102,10 +103,22 @@ class DBLite {
 
 		}
 
-		void searchTable(const char *id){
+		bool searchTable(const char *id){
 			// Searching user in table by id
-			sql = "SELECT * FROM User WHERE user_id = 'id';";
+			sql = "SELECT * FROM user WHERE user_id = 'id';";
 			rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
+		}
+
+		void returnRow(const char* name){
+
+		}
+
+		int numOfRow(){
+			sql = "SELECT COUNT(*) as rownum FROM 'user';";
+		}
+
+		void updateData(const char *name, const char* email, const char* address, const char* phone){
+
 		}
 
 		void deleteRow(char const* user_id) {
