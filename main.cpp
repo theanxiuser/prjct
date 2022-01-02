@@ -13,10 +13,12 @@ void inputData(){
     // Getting information using CLI
     string name, address, email, gender, phone;
     cout<<"Enter full name: ";
+    cin.ignore();
     getline(cin, name);
     cout<<"Enter email: ";
     cin>>email;
     cout<<"Enter address: ";
+    cin.ignore();
     getline(cin, address);
     cout<<"Enter phone no: ";
     cin>>phone;
@@ -25,39 +27,46 @@ void inputData(){
 
     // Passing data into User class object
     User usr;
-    // Check either user already present or not
-    if(usr.searchUser(name)){
-        cout<<"Sorry, "<<name<<" is already exists.\nTry for others."<<endl;
-    }
-    else{
-        usr.addUser(name, email, address, phone, gender);
-        cout<<"User created succesfully."<<endl;
-    }
+    // // Check either user already present or not
+    // if(usr.searchUser(name)){
+    //     cout<<"Sorry, "<<name<<" is already exists.\nTry for others."<<endl;
+    // }
+    // else{
+    //     usr.addUser(name, email, address, phone, gender);
+    //     cout<<"User created succesfully."<<endl;
+    // }
+
+    usr.addUser(name, email, address, phone, gender);
+    cout<<"User created succesfully."<<endl;
 }
 
 void displayAllUser(){
     // Requesting member function of User class to display all the users
     User usr;
-    for(int i=0; i< usr.numOfRow(); i++){
-        usr.displayAllUser();
-        usr.displayUser();
-    }
+    // for(int i=0; i< usr.numOfRow(); i++){
+    //     usr.displayAllUser();
+    //     usr.displayUser();
+    // }
+    usr.displayAllUser();
 }
 
 void searchUser(){
     string name;
     cout<<"Which user do you want to search ?"<<endl;
+    cin.ignore();
     getline(cin, name);
 
     // SEnding request to User object
     User usr;
-    if(usr.searchUser(name)){
-        usr.returnUser(name);
-        cout<<"User Information:"<<endl;
-        usr.displayUser();
-    }
-    else
-        cout<<"User: "<<name<<" Doesn't exists !!!"<<endl;
+    // if(usr.searchUser(name)){
+    //     usr = usr.returnUser(name);
+    //     cout<<"User Information:"<<endl;
+    //     usr.displayUser();
+    // }
+    // else
+    //     cout<<"User: "<<name<<" Doesn't exists !!!"<<endl;
+
+    usr.returnUser(name);
 }
 
 void updateUser(){
@@ -67,6 +76,7 @@ void updateUser(){
     // Conformation for updating
     cout<<"Which user you want to update?"<<endl;
     string name, email, address, phone;
+    cin.ignore();
     getline(cin, name);
 
     // Before updating check either user is in db or not
@@ -77,6 +87,7 @@ void updateUser(){
         cout<<"Email: ";
         cin>>email;
         cout<<"Address: ";
+        cin.ignore();
         getline(cin, address);
         cout<<"Phone: ";
         cin>>phone;
@@ -97,9 +108,11 @@ void removeUser(){
     // Conformation for deleting
     cout<<"Which user you want to delete?"<<endl;
     string name;
+    cin.ignore();
     getline(cin, name);
 
     // Sending delete request to User object;
+    // Not completed first check this is present or not
     User usr;
     usr.removeUser(name);
     cout<<name<<" removed from user successfully"<<endl;
@@ -109,12 +122,12 @@ int main(){
     // This is CLI for user to operate and control over program 
     int choice;
     while(1){
-        cout<<"\n1. Add user\n\
-            2. Search user\n\
-            3. Display all users\n\
-            4. Update user\n\
-            5. Remove user\n\
-            6. Exit\n";
+        cout<<"\n1. Add user\
+            \n2. Search user\
+            \n3. Display all users\
+            \n4. Update user\
+            \n5. Remove user\
+            \n6. Exit\n";
         cout<<"What do You want? "<<endl;
         cin>>choice;
         switch(choice){

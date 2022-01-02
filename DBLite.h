@@ -59,14 +59,12 @@ class DBLite {
 		void createTable() {
 		    // Save SQL to create a table
 		    sql = "CREATE TABLE IF NOT EXISTS user ("
-				"user_id INT PRIMARY KEY NOT NULL,"
-				"first_name TEXT NOT NULL,"
-				"last_name TEXT NOT NULL,"
-				"gender TEXT NOT NULL,"
+				"name TEXT NOT NULL UNIQUE,"
+				"user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,"
+				"email TEXT NOT NULL UNIQUE,"
 				"address TEXT NOT NULL,"
-				"email TEXT NOT NULL,"
-				"phone TEXT NOT NULL,"
-				"department TEXT NOT NULL );";
+				"phone TEXT NOT NULL UNIQUE,"
+				"gender TEXT NOT NULL;)";
 		    
 		    // Run the SQL
 		    rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
@@ -77,7 +75,7 @@ class DBLite {
 			char *query = NULL;
 
 			// Build a string using asprintf()
-			asprintf(&query, "INSERT INTO user ('user_id', 'first_name', 'last_name', 'gender', 'address', 'email', 'phone', 'department' ) VALUES  ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');", user_id, first_name, last_name, gender, address, email, phone, department);   
+			asprintf(&query, "INSERT INTO user ('name', 'email', 'address', 'phone', 'gender') VALUES  ('%s', '%s', '%s', '%s', '%s');", name, email, address, phone, gender);   
 
 			// Prepare the query
 		    sqlite3_prepare(db, query, strlen(query), &stmt, NULL);
@@ -103,30 +101,37 @@ class DBLite {
 
 		}
 
-		bool searchTable(const char *id){
-			// Searching user in table by id
-			sql = "SELECT * FROM user WHERE user_id = 'id';";
+		bool searchTable(const char *name){
+			// Searching user in table by name
+			sql = "SELECT * FROM user WHERE name = 'name';";
 			rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
+			// Not working need to be modify
+			return true;
 		}
 
 		void returnRow(const char* name){
-
+			// Return info of specific user
+			sql = "SELECT * FROM 'user' WHERE name = 'name';";
+			rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
 		}
 
 		int numOfRow(){
 			sql = "SELECT COUNT(*) as rownum FROM 'user';";
+			// Not working 
+			return 1;
 		}
 
 		void updateData(const char *name, const char* email, const char* address, const char* phone){
-
+			sql = ("UPDATE 'user' SET email='%s', address='%s', phone='%s' WHERE name='%s';", email, address, phone, name);
+			rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
 		}
 
-		void deleteRow(char const* user_id) {
+		void deleteRow(char const* name) {
 
 			char *query = NULL;
 
 			// Build a string using asprintf()
-			asprintf(&query, "DELETE FROM 'user' WHERE ID = '%s';", user_id);   
+			asprintf(&query, "DELETE FROM 'user' WHERE name = '%s';", name);   
 
 			// Prepare the query
 		    sqlite3_prepare(db, query, strlen(query), &stmt, NULL);

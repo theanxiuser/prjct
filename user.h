@@ -16,13 +16,16 @@ class User{
     public:
     void addUser(string, string, string, string, string);
     // vector<string> returnUser();
-    User returnUser(string);
+    // User returnUser(string);
+    void returnUser(string);
     void displayUser();
     void updateUser(string, string, string, string);
     void removeUser(string);
-    User displayAllUser();
+    // User displayAllUser();
+    void displayAllUser();
     bool searchUser(string);
     int numOfRow();
+    // friend class DBLite;
     // friend void access(User usr);
 };
 
@@ -35,23 +38,41 @@ int User::numOfRow(){
 }
 
 // Return all the users available in db into main
-User User::displayAllUser(){
-    User u;
+// User User::displayAllUser(){
+//     User u;
+//     DBLite sqldb;
+//     sqldb.showTable();
+//     // Returning all the content of table row by row 
+//     sqldb.closeDB();
+//     return u;
+// }
+
+void User::displayAllUser(){
+    // User u;
     DBLite sqldb;
     sqldb.showTable();
-    // Returning all the content of table row by row
-    
-    return u;
+    // Returning all the content of table row by row 
+    sqldb.closeDB();
+    // return u;
 }
 
-User returnUser(string name){
-    User u;
+// User returnUser(string name){
+//     User u;
+//     DBLite sqldb;
+//     // Requesting db to return row of name=name
+//     sqldb.returnRow(name.c_str());
+//     // Store info into object and return back to main
+//     sqldb.closeDB();
+//     return u;
+// }
+
+void User::returnUser(string name){
+    this->name = name;
     DBLite sqldb;
     // Requesting db to return row of name=name
     sqldb.returnRow(name.c_str());
     // Store info into object and return back to main
-
-    return u;
+    sqldb.closeDB();
 }
 
 bool User::searchUser(string name){
