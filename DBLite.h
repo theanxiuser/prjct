@@ -59,12 +59,12 @@ class DBLite {
 		void createTable() {
 		    // Save SQL to create a table
 		    sql = "CREATE TABLE IF NOT EXISTS user ("
+				"user_id INT PRIMARY KEY NOT NULL,"
 				"name TEXT NOT NULL UNIQUE,"
-				"user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,"
 				"email TEXT NOT NULL UNIQUE,"
 				"address TEXT NOT NULL,"
 				"phone TEXT NOT NULL UNIQUE,"
-				"gender TEXT NOT NULL;)";
+				"gender TEXT NOT NULL );";
 		    
 		    // Run the SQL
 		    rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
@@ -73,6 +73,9 @@ class DBLite {
 		void insertData(char const * name, const char *email, const char *address, const char *phone, const char *gender) {
 
 			char *query = NULL;
+			cout<<"INTO DB"<<endl;
+			cout<<name<<endl;
+			cout<<email<<endl;
 
 			// Build a string using asprintf()
 			asprintf(&query, "INSERT INTO user ('name', 'email', 'address', 'phone', 'gender') VALUES  ('%s', '%s', '%s', '%s', '%s');", name, email, address, phone, gender);   
